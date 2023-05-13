@@ -13,8 +13,7 @@ This is a Java-based application for an Educational Institute to automate studen
   - Create a batch under a course
   - Search for information about batches
   - Update batch details
- ![Screenshot]("E:\even-party-7284\Screenshot (245).png")
-*Screenshot of the Course Search page*
+
 - Students can:
   - Sign up
   - Sign in with email and password
