@@ -14,11 +14,15 @@ import com.masai.exception.InvalidDateException;
 public class AdminServiceImpl implements AdminService {
 	
 	private static final Admin ADMIN = new Admin();
-	
+	public static final String ANSI_RESET = "\u001B[0m";
+	  public static final String ANSI_YELLOW = "\u001B[33m";
+	  
+	  public static final String ANSI_GREEN = "\u001B[32m";
+	  public static final String ANSI_PURPLE = "\u001B[32m";
 	@Override
 	public void showOption(Scanner sc) throws CourseNotFoundException, BatchNotFoundException, InvalidDateException {
-		
-	    	 System.out.println("Enter 1:-for Add new Courses");
+		     System.out.println();
+	    	 System.out.println(ANSI_PURPLE+"Enter 1:-for Add new Courses");
 	    	 System.out.println("Enter 2:-for Delete course from List");
 	    	 System.out.println("Enter 3:-for Update details of course");
 	    	 System.out.println("Enter 4:-for Create a Batch under a course.");
@@ -26,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
 	    	 System.out.println("Enter 6:-for Update details of batch");
 	    	 System.out.println("Enter 7:-for View All The Courses");
 	    	 System.out.println("Enter 8:-for View All The Batches");
-	    	 System.out.println("Enter 9:-for Exit");
+	    	 System.out.println("Enter 9:-for Exit"+ANSI_RESET);
 	    	 int adminChoice=sc.nextInt();
 	    	 switch (adminChoice) {
 	    	 
@@ -108,6 +112,7 @@ public class AdminServiceImpl implements AdminService {
 	public void courseDelete(Scanner sc) {
 		System.out.println("                                ");
 		System.out.println("Enter course name to be deleted:");
+		sc.nextLine();
 		String courseNameToDelete = sc.nextLine();
 		Course courseToDelete = ADMIN.getCourseByName(courseNameToDelete);
 		if (courseToDelete == null) {
@@ -230,6 +235,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void deleteBatch(Scanner sc) {
 		System.out.println("                                ");
+		sc.nextLine();
 		System.out.println("Enter Batch name to be deleted:");
 		String batchNameToDelete = sc.nextLine();
 		Batch batchToDelete = ADMIN.getBatchByName(batchNameToDelete);

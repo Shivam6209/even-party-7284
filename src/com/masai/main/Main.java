@@ -13,34 +13,42 @@ import com.masai.exception.InvalidDateException;
 
 public class Main {
   static final Student STUDENT=new Student();
+  public static final String ANSI_RESET = "\u001B[0m";
+  public static final String ANSI_YELLOW = "\u001B[33m";
+  
+  public static final String ANSI_GREEN = "\u001B[32m";
+  public static final String ANSI_PURPLE = "\u001B[34m";
+  
 	public static void main(String[] args) {
 		try (Scanner scanner = new Scanner(System.in)) {
 			Admin admin = new Admin();
-			System.out.println(" Welcome to Student Registration System ");
-		
+//			System.out.println();
+			System.err.println("##########################################################################");
+			System.out.println();
+			System.out.println( ANSI_YELLOW+" *************Welcome to Student Registration System**************** "+ANSI_RESET);
+			System.out.println();
 			while (true) {
 				
-				System.out.println(" Please Select an option:-");
-				System.out.println(" Enter:-1 for Admin login  ");
-				System.out.println(" Enter:-2 for Student login   ");
-				System.out.println(" Enter:-3 for Student SignUp      ");
-				System.out.println(" Enter:-4 for Exit        ");
-				System.out.println();
+				System.out.println(ANSI_GREEN+"***Please Select an option:-");
+				System.out.println("***Enter:-1 for Admin login  ");
+				System.out.println("***Enter:-2 for Student login   ");
+				System.out.println("***Enter:-3 for Student SignUp      "+ANSI_RESET);
+				
 
 				int choice = scanner.nextInt();
 				
 				switch (choice) {
 				case 1:
-					System.out.println("Enter Admin userName:-");
+					System.out.println(ANSI_PURPLE+"Enter Admin userName:-");
 					String adminUsername = scanner.next();
-					System.out.println("Enter Admin password:-");
+					System.out.println("Enter Admin password:-"+ANSI_RESET);
 					String adminPassword = scanner.next();
 					if (adminUsername.equals("admin") && adminPassword.equals("admin")) {
 						// administrator menu
-						System.out.println("###############################");
+						System.out.println(ANSI_YELLOW+"###############################"+ANSI_RESET);
 						System.out.println("Login successful.");
-						System.out.println("Hello Admin:-");
-						System.out.println("###############################");
+						System.out.println(ANSI_GREEN+"Hello Admin :)"+ANSI_RESET);
+						System.out.println(ANSI_YELLOW+"###############################"+ANSI_RESET);
 						System.err.println();
 						boolean isAdminLogin = true;
 						while (isAdminLogin) {
@@ -58,9 +66,10 @@ public class Main {
 					break;
 
 				case 2:
+					
 					scanner.nextLine();
 //					// STUDENT login
-					System.out.println("Enter Student email:-");
+					System.out.println(ANSI_GREEN+"Enter Student email:-");
 					String email = scanner.nextLine();
 					System.out.println("Enter Student password:-");
 					String password = scanner.nextLine();
@@ -68,7 +77,7 @@ public class Main {
 					for (Student stu : admin.getStudents()) {
 						if (stu.getEmail().equals(email) && stu.getPassword().equals(password)) {
 							// Student menu
-							System.out.println("Student login successful.");
+							System.out.println("Student login successful."+ANSI_RESET);
 							foundStudent = true;
 							break;
 						}
@@ -81,7 +90,7 @@ public class Main {
 						while (isStudentMenuActive) {
                             StudentServiceImpl ssi=new StudentServiceImpl();
                             
-                            System.out.println("                                ");
+                            System.out.println(ANSI_PURPLE+"                                ");
                     		System.out.println("*********************************");
                     		System.out.println(" Please select an option:     ");
                     		
@@ -92,7 +101,7 @@ public class Main {
                     		System.out.println(" 5:- Register for a course       ");
                     		System.out.println(" 0:- Exit                      ");
                     		System.out.println("********************************");
-                    		System.out.println("                                ");
+                    		System.out.println("                                "+ANSI_RESET);
 							choice = scanner.nextInt();
 							scanner.nextLine();
 
@@ -160,7 +169,7 @@ public class Main {
 								System.out.println("List of courses:-"
 										+ "");
 								for (Course c : admin.getCourses()) {
-									System.out.println("Batch: " + c.getCourseName() + ", Duration: " + c.getDurationInDays()
+									System.out.println("Course: " + c.getCourseName() + ", Duration: " + c.getDurationInDays()
 											+ ", Fees: " + c.getFee());
 								}
 								break;
@@ -217,28 +226,26 @@ public class Main {
 					// SignUp
 					scanner.nextLine();
 					System.out.println("                                ");
-					System.out.println("Enter STUDENT first name:");
+					System.out.println("Enter STUDENT first name for signup:");
 					String firstName = scanner.nextLine();
-					System.out.println("Enter STUDENT last name:");
+					System.out.println("Enter STUDENT last name for signup:");
 					String lastName = scanner.nextLine();
-					System.out.println("Enter STUDENT address:");
+					System.out.println("Enter STUDENT address for signup:");
 					String address = scanner.nextLine();
-					System.out.println("Enter STUDENT mobile number:");
+					System.out.println("Enter STUDENT mobile number for signup:");
 					String mobile = scanner.nextLine();
-					System.out.println("Enter STUDENT email:");
+					System.out.println("Enter STUDENT email for signup:");
 					String email1 = scanner.nextLine();
-//					if(STUDENT.getEmail().contains(email1)) {
-//						throw new DuplicateEmailException("Given email is already registed");
-//					};
-					System.out.println("Enter STUDENT password:");
+
+					System.out.println("Enter STUDENT password for signup:");
 					String password1 = scanner.nextLine();
 					Student students = new Student(firstName, lastName, address, mobile, email1, password1);
 					admin.getStudents().add(students);
-					System.out.println("Student added successfully.");
+					System.out.println("Student added successfully....");
 					break;
 				case 4:
 					System.out.println("Successfully Exit!");
-					System.exit(0);
+
 					break;
 				default:
 					System.out.println("Invalid choice.");
@@ -246,8 +253,7 @@ public class Main {
 				}
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.getMessage();
+			System.out.println(e.getMessage());
 		}
 	}
 }
