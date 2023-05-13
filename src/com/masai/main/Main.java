@@ -23,7 +23,7 @@ public class Main {
   
 	public static void main(String[] args) {
 		try (Scanner scanner = new Scanner(System.in)) {
-			Admin admin = new Admin();
+			Admin admin =AdminServiceImpl.returnAdmin();
 //			System.out.println();
 			System.out.println(ANSI_RED+"##########################################################################"+ANSI_RESET);
 			System.out.println();

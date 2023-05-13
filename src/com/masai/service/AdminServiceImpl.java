@@ -363,8 +363,8 @@ public class AdminServiceImpl implements AdminService {
 	    
 	}
 	
-	public static List<Course> returnAdmin() {
-		return ADMIN.getCourses();
+	public static Admin returnAdmin() {
+		return ADMIN;
 		
 	}
 }
