@@ -2,6 +2,7 @@ package com.masai.service;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import com.masai.entity.Admin;
@@ -10,19 +11,21 @@ import com.masai.entity.Course;
 import com.masai.exception.BatchNotFoundException;
 import com.masai.exception.CourseNotFoundException;
 import com.masai.exception.InvalidDateException;
+import com.masai.main.Main;
 
 public class AdminServiceImpl implements AdminService {
 	
-	private static final Admin ADMIN = new Admin();
+	static Admin ADMIN = new Admin();
 	public static final String ANSI_RESET = "\u001B[0m";
 	  public static final String ANSI_YELLOW = "\u001B[33m";
 	  
-	  public static final String ANSI_GREEN = "\u001B[32m";
+	  public static final String ANSI_RED = "\u001B[32m";
 	  public static final String ANSI_PURPLE = "\u001B[32m";
+	  public static final String ANSI_RED_BACK = "\u001B[41m";
 	@Override
 	public void showOption(Scanner sc) throws CourseNotFoundException, BatchNotFoundException, InvalidDateException {
 		     System.out.println();
-	    	 System.out.println(ANSI_PURPLE+"Enter 1:-for Add new Courses");
+	    	 System.out.println(ANSI_RED_BACK+"Enter 1:-for Add new Courses");
 	    	 System.out.println("Enter 2:-for Delete course from List");
 	    	 System.out.println("Enter 3:-for Update details of course");
 	    	 System.out.println("Enter 4:-for Create a Batch under a course.");
@@ -81,7 +84,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void addCourse(Scanner scanner) throws CourseNotFoundException {
-		System.out.println("                                ");
+		System.out.println(ANSI_RED+"                                ");
 		System.out.println("Enter course name:");
 		scanner.nextLine();
 		String courseName = scanner.nextLine();
@@ -97,20 +100,20 @@ public class AdminServiceImpl implements AdminService {
 		
 		for (Course c : ADMIN.getCourses()) {
 			if (c.getCourseName().equals(course.getCourseName())) {
-				throw new CourseNotFoundException("Course with same name already exists");
+				throw new CourseNotFoundException("Course with same name already exists"+ANSI_RESET);
 			}
 		}
 		
 		ADMIN.getCourses().add(course);
 		System.out.println();
-		System.out.println("***************************");
+		System.out.println(ANSI_PURPLE+"***************************");
 		System.out.println("Course added successfully.");
-		System.out.println("***************************");
+		System.out.println("***************************"+ANSI_RESET);
 	}
 
 	@Override
 	public void courseDelete(Scanner sc) {
-		System.out.println("                                ");
+		System.out.println(ANSI_RED+"                                ");
 		System.out.println("Enter course name to be deleted:");
 		sc.nextLine();
 		String courseNameToDelete = sc.nextLine();
@@ -127,7 +130,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public  void updateCourseDetail(Scanner sc) throws CourseNotFoundException {
 		
-		System.out.println("Enter the Course ID or name In Which you want update");
+		System.out.println(ANSI_PURPLE+"Enter the Course ID or name In Which you want update");
 		String updateChoice=sc.next();
 	    Course courseToUpdate=ADMIN.getCourseByName(updateChoice);
 	    if(courseToUpdate==null) {
@@ -340,7 +343,7 @@ public class AdminServiceImpl implements AdminService {
 	public void viewAllCourse(Scanner sc) {
 		
 		for (Course c : ADMIN.getCourses()) {
-		  System.out.println("CourseID:- "+c.getCourseID()+", CourseName:- "+c.getCourseName()+", Duration:- "+c.getDurationInDays()+", Fees:- "+c.getFee());
+		  System.out.println(ANSI_RED_BACK+"CourseID:- "+c.getCourseID()+", CourseName:- "+c.getCourseName()+", Duration:- "+c.getDurationInDays()+", Fees:- "+c.getFee()+ANSI_RESET);
 		}
 		System.out.println();
 	}
@@ -355,7 +358,13 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public void viewBatchWiseReport(Scanner sc) {
-	    System.out.println("Exiting from sysytem...");
+	    System.out.println("Exiting from sysytem..."+ANSI_RESET);
+	    Main.main(null);
 	    
+	}
+	
+	public static List<Course> returnAdmin() {
+		return ADMIN.getCourses();
+		
 	}
 }
